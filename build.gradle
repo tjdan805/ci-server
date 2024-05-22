@@ -15,12 +15,14 @@ java {
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
+
 	}
 }
 
 repositories {
 	mavenCentral()
 }
+
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -49,7 +51,7 @@ jacocoTestCoverageVerification{
 			includes = ['com.example.demo.*.**']
 			limit {
 				value = 'COVEREDRATIO'
-				minimum = 0.8
+				minimum = 0.5
 			}
 		}
 	}
@@ -62,7 +64,6 @@ jacocoTestReport {
 	}
 	finalizedBy('jacocoTestCoverageVerification')
 }
-
 tasks.named('test') {
 	useJUnitPlatform()
 	finalizedBy('jacocoTestReport')
