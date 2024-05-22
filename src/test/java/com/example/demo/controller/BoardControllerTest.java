@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.domain.request.BoardRequest;
 import com.example.demo.domain.response.BoardResponse;
 import com.example.demo.service.BoardServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
@@ -15,6 +17,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrint;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -62,6 +65,19 @@ class BoardControllerTest {
     }
 
     @Test
-    void saveBoard() {
+    void saveBoard() throws Exception {
+        BoardRequest boardRequest = new BoardRequest("test1", "test1");
+        BDDMockito.doNothing()
+                .when(boardService)
+                .saveBoard(boardRequest);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String s = objectMapper.writeValueAsString(boardRequest);
+//        when & then
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post("/api/boards")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(s))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andDo(MockMvcResultHandlers.print());
     }
 }
