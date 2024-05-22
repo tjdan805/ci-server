@@ -23,6 +23,10 @@ public class BoardController {
     public List<BoardResponse> getAllBoard(){
         return boardService.getAll();
     }
+    @GetMapping("{id}")
+    public BoardResponse getByIdBoard(@PathVariable("id") Long id){
+        return boardService.getById(id);
+    }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void saveBoard(@RequestBody BoardRequest request){

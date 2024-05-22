@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +20,13 @@ public class BoardServiceImpl implements BoardService {
         Board board = boardRepository.findById(id)
                 .orElseThrow(IllegalArgumentException::new);
         return BoardResponse.of(board);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        Optional<Board> byId = boardRepository.findById(id);
+        byId.orElseThrow(IllegalArgumentException::new);
+        boardRepository.deleteById(id);
     }
 
     @Override

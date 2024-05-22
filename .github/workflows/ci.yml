@@ -9,7 +9,10 @@ on:
 
 jobs:
   ci:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix: 
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
     permissions:
       contents: read
 
@@ -26,9 +29,11 @@ jobs:
       
     - name: chmod 
       run: chmod 744 gradlew
+      if: runner.os == 'Linux' || runner.os == 'macOS'  
       
     - name: Build with Gradle Wrapper
       run: ./gradlew build
+      
 
   dependency-submission:
 
