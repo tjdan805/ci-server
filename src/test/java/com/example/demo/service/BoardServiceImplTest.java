@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.client.RestTemplate;
 //
 import java.util.List;
 import java.util.Optional;
@@ -39,8 +40,9 @@ class BoardServiceImplTest {
         assertNotNull(byId.id());
     }
     @Test
-    void getByIdNotExist() {
-        BDDMockito.given(boardRepository.findById(1l)).willReturn(Optional.empty());
+    void 아이디로_보드를_조회할때_없는_아이디로_조회를_했을때_IllegalArumentException이_발생한다() {
+        BDDMockito.given(boardRepository.findById(1l))
+                .willReturn(Optional.empty());
 
         assertThrows(IllegalArgumentException.class, ()->{
             boardService.getById(1l);
@@ -73,4 +75,7 @@ class BoardServiceImplTest {
 
         Mockito.verify(boardRepository, Mockito.times(1)).save(entity);
     }
+
+
+
 }

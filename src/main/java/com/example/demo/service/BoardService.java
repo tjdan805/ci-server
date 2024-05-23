@@ -9,4 +9,5 @@ public interface BoardService {
     List<BoardResponse> getAll();
     void saveBoard(BoardRequest request);
     BoardResponse getById(Long id);
+    void deleteById(Long id);
 }
