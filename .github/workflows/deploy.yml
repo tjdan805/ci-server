@@ -24,7 +24,7 @@ jobs:
           cd ci-server
           git pull
           sh gradlew build
-          nohup java -jar build/libs/*T.jar >/dev/null 2>&1 & 
+          nohup java -jar build/libs/*T.jar >/dev/null 2>&1 
           echo hello
 
 
