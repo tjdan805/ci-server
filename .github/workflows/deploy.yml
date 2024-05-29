@@ -14,6 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
@@ -53,6 +54,7 @@ jobs:
           docker rm -f ${{secrets.DOCKER_REPO}} 
           docker run --name ${{secrets.DOCKER_REPO}} -p 8080:8080 -e profiles=prod --network=server -e username=${{secrets.DB_USER}} -e password=${{secrets.DB_PASSWORD}} -d ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_REPO}}
       
+
 
 
 
